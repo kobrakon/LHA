@@ -9,67 +9,45 @@ namespace LHA
 {
     public class LHAController : MonoBehaviour
     {
-        public static GameWorld gameWorld;
-        public static float current = 0;
-        public static SoundPlayer soundPlayer;
-        public static bool isLoaded = false;
-        public static bool trigger = false;
-        public static SessionResultPanel sessionResultPanel;
+        private SoundPlayer soundPlayer;
+        private bool isLoaded = false;
+        private bool trigger = false;
+        private SessionResultPanel sessionResultPanel;
 
         public void Update()
         {
-            gameWorld = Singleton<GameWorld>.Instance;
-            sessionResultPanel = Singleton<SessionResultPanel>.Instance;
-
-            if (gameWorld == null)
-            {
-                trigger = false;
-                return;
-            }
-
+            var gameWorld = Singleton<GameWorld>.Instance;
             if (gameWorld.AllPlayers == null)
-            {
-                trigger = false;
                 return;
-            }
 
-            if (gameWorld.AllPlayers.Count == 0)
-            {
-                trigger = false;
+            if (gameWorld.AllPlayers.Count <= 0)
                 return;
-            }
+            
 
             if (gameWorld.AllPlayers[0] is HideoutPlayer)
-            {
-                trigger = false;
                 return;
-            }
 
+            sessionResultPanel = Singleton<SessionResultPanel>.Instance;
             if (sessionResultPanel != null)
-            {
-                trigger = false;
                 return;
-            }
 
             if (!isLoaded)
                 LoadAudio();
 
-            current = gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current;
+            var current = gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current;
 
-            if (current <= 220)
-            {
-                trigger = true;
-            }
-            else
+            if (current > 220)
             {
                 if (!trigger)
                     return;
 
                 trigger = false;
             }
+            else
+                trigger = true;
         }
 
-        private IEnumerator Start()
+        public IEnumerator Start()
         {
             StartCoroutine(Check());
             yield break;
@@ -85,7 +63,7 @@ namespace LHA
             yield break;
         }
 
-        private static void OnEvent()
+        private void OnEvent()
         {
             if (!isLoaded)
                 LoadAudio();
@@ -93,7 +71,7 @@ namespace LHA
             soundPlayer.PlayLooping();
         }
 
-        private static void OnEventEndOrNull()
+        private void OnEventEndOrNull()
         {
             if (!isLoaded)
                 LoadAudio();
@@ -101,7 +79,7 @@ namespace LHA
             soundPlayer.Stop();
         }
 
-        private static void LoadAudio()
+        private void LoadAudio()
         {
             if (isLoaded)
                 return;
