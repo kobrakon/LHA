@@ -29,7 +29,10 @@ namespace LHA
 
             sessionResultPanel = Singleton<SessionResultPanel>.Instance;
             if (sessionResultPanel != null)
+            {
+                trigger = false
                 return;
+            }
 
             if (!isLoaded)
                 LoadAudio();
