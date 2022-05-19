@@ -17,14 +17,7 @@ namespace LHA
         public void Update()
         {
             var gameWorld = Singleton<GameWorld>.Instance;
-            if (gameWorld.AllPlayers == null)
-                return;
-
-            if (gameWorld.AllPlayers.Count <= 0)
-                return;
-            
-
-            if (gameWorld.AllPlayers[0] is HideoutPlayer)
+            if (gameWorld.AllPlayers == null || gameWorld.AllPlayers.Count <= 0 || gameWorld.AllPlayers[0] is HideoutPlayer)
                 return;
 
             sessionResultPanel = Singleton<SessionResultPanel>.Instance;
@@ -68,17 +61,11 @@ namespace LHA
 
         private void OnEvent()
         {
-            if (!isLoaded)
-                LoadAudio();
-
             soundPlayer.PlayLooping();
         }
 
         private void OnEventEndOrNull()
         {
-            if (!isLoaded)
-                LoadAudio();
-
             soundPlayer.Stop();
         }
 
