@@ -9,9 +9,7 @@ namespace LHA
         public static GameObject Hook;
         private void Awake()
         {
-            Hook = new GameObject("LowHealthAlert");
-            Hook.AddComponent<LHAController>();
-            DontDestroyOnLoad(Hook);
+            new LHAController().Start();
             Logger.LogInfo($"LHA Loading");
         }
     }
