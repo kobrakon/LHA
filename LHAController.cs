@@ -8,7 +8,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
 {
     public class LHAController : MonoBehaviour // controller script, the brains of the mod that runs in Mono
     {
-        private SoundPlayer soundPlayer;
+        private static SoundPlayer soundPlayer;
         private bool isPlaying = false; // I have to use this bool, turns out attempting to load and play audio every frame doesn't end well
 
         public void Update() // base unity mono method that runs every frame
@@ -57,7 +57,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
             }
         }
 
-        public void LoadAudio(string fullpath) // self explainatory
+        public static void LoadAudio(string fullpath) // self explainatory
         {
             soundPlayer.SoundLocation = Directory.GetCurrentDirectory() + fullpath; // fetch audio file
 
