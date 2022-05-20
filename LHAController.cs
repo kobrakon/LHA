@@ -59,7 +59,10 @@ namespace LHA // LHA sounds like an alternative to LUA or something
 
         public static void LoadAudio(string fullpath) // self explainatory
         {
-            soundPlayer.SoundLocation = Directory.GetCurrentDirectory() + fullpath; // fetch audio file
+            soundPlayer = new SoundPlayer
+            {
+                SoundLocation = Directory.GetCurrentDirectory() + fullpath // fetch audio file
+            };
 
             soundPlayer.Load(); // load audio file
         }
