@@ -9,8 +9,10 @@ namespace LHA
         public static GameObject Hook;
         private void Awake()
         {
-            new LHAController().Start();
-            Logger.LogInfo($"LHA Loading");
+            Logger.LogInfo($"LHA: Loading");
+            Hook = new GameObject("LHA");
+            Hook.AddComponent<LHAController>();
+            DontDestroyOnLoad(Hook);
         }
     }
 }
