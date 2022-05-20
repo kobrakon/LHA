@@ -13,6 +13,8 @@ namespace LHA
             Hook = new GameObject("LHA");
             Hook.AddComponent<LHAController>();
             DontDestroyOnLoad(Hook);
+            
+            LHAController.LoadAudio("\\BepInEx\\plugins\\LHA\\alert.wav");
         }
     }
 }
