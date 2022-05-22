@@ -53,7 +53,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
                 return false; // return false, do not allow for alert
             } else // if player is below 220
             {
-                return true; // return true, allow for alert alert
+                return true; // return true, allow for alert
             }
         }
 
