@@ -10,20 +10,15 @@ namespace LHA // LHA sounds like an alternative to LUA or something
     {
         private static SoundPlayer soundPlayer;
         private bool isPlaying = false; // I have to use this bool, turns out attempting to load and play audio every frame doesn't end well
-
         public void Update() // base unity mono method that runs every frame
         {
             var r = Ready(); // check if stuff is loaded
             var t = Trigger(); // check if threshold is met
-
-            if (r == false)
-                return;
-
-            if (t && !isPlaying) // if threshold is met and alert isn't already plating
+            if (t && r && !isPlaying) // if threshold is met, world is loaded, and alert isn't already playing
             {
                 isPlaying = true;
                 soundPlayer.PlayLooping(); // play alert
-            } else // threshold not met?
+            } else if (!t || !r) // threshold not met or player has dipped?
             {
                 isPlaying = false;
                 soundPlayer.Stop(); // end alert
@@ -45,9 +40,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
         bool Trigger() // checks player health to decide whether to play the alert or not
         {
             var gameWorld = Singleton<GameWorld>.Instance; // gaemwordl
-
             var current = gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current; // get player's current total health
-
             if (current > 220) // if health is above 220
             {
                 return false; // return false, do not allow for alert
