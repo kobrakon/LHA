@@ -47,8 +47,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
         bool Trigger() // checks player health to decide whether to play the alert or not
         {
             var gameWorld = Singleton<GameWorld>.Instance; // gaemwordl
-
-            var current = Mathf.Floor(gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current); // get player's current total health, round down to avoid evil floating point inaccuracies
+            float current = Mathf.Floor(gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current); // get player's current total health, round down to avoid evil floating point inaccuracies
 
             if (current > 220) // if health is above 220
             {
