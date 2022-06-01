@@ -48,7 +48,7 @@ namespace LHA // LHA sounds like an alternative to LUA or something
         {
             var gameWorld = Singleton<GameWorld>.Instance; // gaemwordl
 
-            var current = gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current; // get player's current total health
+            var current = Mathf.Floor(gameWorld.AllPlayers[0].HealthController.GetBodyPartHealth(EBodyPart.Common).Current); // get player's current total health, round down to avoid evil floating point inaccuracies
 
             if (current > 220) // if health is above 220
             {
