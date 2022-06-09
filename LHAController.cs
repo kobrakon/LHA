@@ -13,18 +13,14 @@ namespace LHA // LHA sounds like an alternative to LUA or something
 
         public void Update() // base unity mono method that runs every frame
         {
-            var r = Ready(); // check if stuff is loaded
-
-            if (!r) // sanity check
+            if (Ready()) // sanity check
                 return;
 
-            var t = Trigger(); // check if threshold is met
-
-            if (t && r && !isPlaying) // if threshold is met and alert isn't already plating
+            if (Trigger() && Ready() && !isPlaying) // if threshold is met and alert isn't already plating
             {
                 isPlaying = true;
                 soundPlayer.PlayLooping(); // play alert
-            } else if (!t || !r) // threshold not met?
+            } else if (!Trigger() || !Ready()) // threshold not met?
             {
                 isPlaying = false;
                 soundPlayer.Stop(); // end alert
